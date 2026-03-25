@@ -6,8 +6,14 @@ import { timeLine } from "@/utils/supabase"
 import { useSearchParams } from "next/navigation"
 import { useState } from "react"
 
+type Post={
+  id:string;
+  content:string;
+  created_at:string;
+}
+
 export default function Search(){
-  const [posts,setPosts]=useState<string[]>([])
+  const [posts,setPosts]=useState<Post[]>([])
   return (
     <div className="text-xl">
       <Header/>
