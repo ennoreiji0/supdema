@@ -25,3 +25,18 @@ export const saveDemand = async (content: string) => {
   }
   //return data;
 }
+
+export const timeLine = async ()=>{
+  const supabase=createClient();
+  const {data,error}=await supabase
+    .from('posts')
+    .select('*')
+    .order('created_at',{ascending:false})
+  if (error) {
+    console.error(error.message)
+    return false;
+  }else{
+    console.log("OK! I got posts.")
+    return data;
+  }
+}

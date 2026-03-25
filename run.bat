@@ -1,2 +1,2 @@
-start http://localhost:3000
+start chrome http://localhost:3000
 npm run dev

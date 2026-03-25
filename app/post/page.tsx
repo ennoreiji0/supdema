@@ -8,6 +8,7 @@ import { saveDemand } from "@/utils/supabase"
 export default function Post(){
   const router=useRouter()
   const [content,setContent]=useState<string>('')
+  const [buttonOK,setButtonOK]=useState<boolean>(true)
   return (
     <div className="text-xl">
       <Header/>
@@ -22,9 +23,15 @@ export default function Post(){
           onChange={(e)=>setContent(e.target.value)}/>
       <div className="text-right space-y-2">
         <NormalButton className="bg-[#2222bb] text-[#ffff00]"
+          disabled={content==="" || !buttonOK}
           onClick={async ()=>{
-            const result=await saveDemand(content)
+            if(content===""){
+              return;
+            }
+            setButtonOK(false)
             setContent('...')
+            const result=await saveDemand(content)
+            
             setTimeout(()=>{
               if(result){
                 setContent("投稿完了！")
@@ -40,7 +47,8 @@ export default function Post(){
           }}
         >Supply!</NormalButton>
         <br />
-        <NormalButton >メモとして保存</NormalButton>
+        <NormalButton 
+          disabled={content==="" || !buttonOK}>メモとして保存</NormalButton>
       </div>
     </div>
   )
