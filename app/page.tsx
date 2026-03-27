@@ -1,18 +1,46 @@
 'use client'
 
-import ButtonInHome from "@/compornents/ButtonInHome"
-//import NormalButton from "@/compornents/NormalButton"
+import Auth from "@/compornents/Auth"
+import HomePage from "@/app/dashboard/page"
+import { createClient } from "@/utils/supabase"
+import { useEffect, useState } from "react"
+import { useRouter } from "next/navigation"
 
 export default function Home(){
+  const [users,setUsers]=useState<any>(null)
+  const supabase=createClient()
+  const router=useRouter()
+
+
+  /*useEffect(() => {
+    const checkUser = async () => {
+      const { data: { user } } = await supabase.auth.getUser()
+      setUsers(user)
+    }
+    checkUser()
+
+    const { data: { subscription } } = supabase.auth.onAuthStateChange((event, session) => {
+      console.log("Auth Event:", event) 
+      setUsers(session?.user ?? null)
+    })
+
+    return () => subscription.unsubscribe() 
+  }, [])*/
+
+
   return (
     <div>
-      <h1 className="text-center text-7xl pt-20 pb-10 text-[#3333aa]">Supply Demand</h1>
-      <div className="flex space-x-5 text-center justify-center">
-        <ButtonInHome href="/post" label="Supply" description="投稿しよう"></ButtonInHome>
-        <ButtonInHome href="/see" label="見る" description="みんなのDemand"></ButtonInHome>
-        <ButtonInHome href="/my-demand" label="メモ" description="自分のDemand"></ButtonInHome>
-        
-      </div>
+      
+
+      <Auth onLogin={()=>{
+        console.log("onLogin");
+        window.location.href = '/dashboard'
+
+      }}/>
+      
+      
     </div>
   )
 }
+
+//<h1 className="text-center text-7xl pt-20 pb-10 text-[#3333aa]">Supply Demand</h1>
