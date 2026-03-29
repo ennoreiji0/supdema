@@ -18,6 +18,18 @@ export default function MyPage(){
     router.push("/")
     router.refresh()
   }
+
+  const handleResetPassword= async()=>{
+    const {data:{user}}=await supabase.auth.getUser()
+    if(user?.email){
+      const {data,error}=await supabase.auth.resetPasswordForEmail(user.email,{
+        redirectTo:"http://localhost:3000/password-change"
+      })
+      alert("パスワード変更メールを送信しました")
+    }
+    
+  }
+
   return (
     <div>
       <Header/>
@@ -25,6 +37,10 @@ export default function MyPage(){
       <NormalButton onClick={()=>{
         handleLogOut()
       }}>ログアウト</NormalButton>
+      <NormalButton onClick={()=>{
+        handleResetPassword()
+      }}
+      >パスワード変更</NormalButton>
     </div>
     )
 }
