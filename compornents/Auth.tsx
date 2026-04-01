@@ -27,6 +27,7 @@ export default function Auth({onLogin}:Prop){
     if(!sendOK){
       return
     }
+    setSendOK(false)
     const {error}=await supabase.auth.signUp({email,password})
     if(error){
       console.log(error)
@@ -41,6 +42,7 @@ export default function Auth({onLogin}:Prop){
     if(!sendOK){
       return
     }
+    setSendOK(false)
     const { error } = await supabase.auth.signInWithPassword({ email, password })
     
     if(error){

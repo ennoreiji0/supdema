@@ -6,15 +6,24 @@ export const createClient = () =>
     process.env.NEXT_PUBLIC_SUPABASE_PUBLISHABLE_DEFAULT_KEY!
   )
 
+// supabase.ts
+export async function getCurrentUser() {
+  const supabase=createClient()
+  const { data: { user }, error } = await supabase.auth.getUser()
+  if (error) return null
+  return user
+}
+
 export const saveDemand = async (content: string) => {
   if (!content) {
     alert("中身が空だ！何か書いて。");
     return false;
   }
   const supabase = createClient();
+  const user=await getCurrentUser()
   const { data, error } = await supabase
     .from('posts')
-    .insert([{ content:content}]);
+    .insert([{ content:content ,user_id:user?.id }]);
 
   if (error) {
     console.error(error.message)
@@ -39,4 +48,14 @@ export const timeLine = async ()=>{
     console.log("OK! I got posts.")
     return data;
   }
+}
+
+export const getPosts=async(name:string ,value:string)=>{
+  const supabase=createClient()
+  const {data,error}=await supabase
+    .from('posts')
+    .select('*')
+    .eq(name,value)
+  
+  return data
 }
