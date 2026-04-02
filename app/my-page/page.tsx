@@ -36,6 +36,10 @@ export default function MyPage(){
     
   }
 
+  const handleProfile=()=>{
+    router.push("/my-page/profile")
+  }
+
   return (
     <div>
       <Header/>
@@ -53,6 +57,14 @@ export default function MyPage(){
       }}
       
       >パスワード変更</NormalButton>
+      <br />
+      <NormalButton
+        disabled={!buttonOK}
+        onClick={()=>{
+          handleProfile()
+        }}
+      >プロフィール変更</NormalButton>
     </div>
+    
     )
 }

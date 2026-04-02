@@ -37,7 +37,7 @@ const isPublicPath = publicPaths.includes(pathname)
 
 // 2. ログインしていない 且つ 公開ページじゃない場所にアクセスしようとしたら -> TOPへ
 if (!user && !isPublicPath) {
-  console.log("★★★ 未ログインなのでブロック:", pathname)
+  console.log("未ログインなのでブロック:", pathname)
   return NextResponse.redirect(new URL('/', request.url))
 }
 
@@ -50,5 +50,5 @@ return response
 }
 
 export const config = {
-  matcher: ['/((?!api|_next/static|_next/image|favicon.ico|.*\\.(?:svg|png|jpg|jpeg|gif|webp)$).*)'],
+  matcher: ['/((?!api|_next/static|_next/image|favicon.ico|sinup|login|.*\\.(?:svg|png|jpg|jpeg|gif|webp)$).*)'],
 }

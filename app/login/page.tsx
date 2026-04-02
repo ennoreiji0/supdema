@@ -1,7 +1,7 @@
 'use client'
 import { createClient } from "@/utils/supabase"
 import { useEffect, useReducer, useState } from "react"
-import NormalButton from "./NormalButton"
+import NormalButton from "@/compornents/NormalButton"
 import { useRouter } from "next/navigation"
 
 

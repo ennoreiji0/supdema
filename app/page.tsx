@@ -1,15 +1,16 @@
 'use client'
 
 import Auth from "@/compornents/Auth"
-import HomePage from "@/app/dashboard/page"
+import MyLink from "@/compornents/MyLink"
+/*import HomePage from "@/app/dashboard/page"
 import { createClient } from "@/utils/supabase"
 import { useEffect, useState } from "react"
-import { useRouter } from "next/navigation"
+import { useRouter } from "next/navigation"*/
 
 export default function Home(){
-  const [users,setUsers]=useState<any>(null)
+  /*const [users,setUsers]=useState<any>(null)
   const supabase=createClient()
-  const router=useRouter()
+  const router=useRouter()*/
 
 
   /*useEffect(() => {
@@ -32,12 +33,9 @@ export default function Home(){
     <div>
       
 
-      <Auth onLogin={()=>{
-        console.log("onLogin");
-        window.location.href = '/dashboard'
-
-      }}/>
-      
+      <MyLink href="/login">ログイン</MyLink>
+      <br/>
+      <MyLink href="/sinup">新規登録</MyLink>
       
     </div>
   )
