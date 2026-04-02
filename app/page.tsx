@@ -1,6 +1,5 @@
 'use client'
 
-import Auth from "@/compornents/Auth"
 import MyLink from "@/compornents/MyLink"
 /*import HomePage from "@/app/dashboard/page"
 import { createClient } from "@/utils/supabase"
