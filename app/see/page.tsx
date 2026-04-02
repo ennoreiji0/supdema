@@ -32,7 +32,7 @@ export default function Search(){
       <div className="space-y-3">
         {posts?.map((post)=>(
           <div key={post.id} className="bg-[#f0f0f0] p-3">
-            <p className="text-sm font-bold">{post.users.username}</p>
+            <p className="text-sm font-bold">{post.users[0].username}</p>
             <p>{post.content}</p>
             <span className="text-sm">
               {new Date(post.created_at).toLocaleString()}
