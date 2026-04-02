@@ -12,7 +12,7 @@ type Post={
   created_at:string;
   users:{
     username:string
-  }
+  }[]
 }
 
 export default function Search(){
