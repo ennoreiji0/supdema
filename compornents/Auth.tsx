@@ -1,4 +1,4 @@
-'use client'
+/*'use client'
 import { createClient } from "@/utils/supabase"
 import { useEffect, useReducer, useState } from "react"
 import NormalButton from "./NormalButton"
@@ -61,4 +61,4 @@ export default function Auth(){
       </div>
     </div>
   )
-}
+}*/

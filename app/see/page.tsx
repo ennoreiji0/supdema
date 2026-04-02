@@ -10,6 +10,9 @@ type Post={
   id:string;
   content:string;
   created_at:string;
+  users:{
+    username:string
+  }
 }
 
 export default function Search(){
@@ -28,9 +31,10 @@ export default function Search(){
       >タイムラインを更新</NormalButton>
       <div className="space-y-3">
         {posts?.map((post)=>(
-          <div key={post.id}>
+          <div key={post.id} className="bg-[#f0f0f0] p-3">
+            <p className="text-sm font-bold">{post.users.username}</p>
             <p>{post.content}</p>
-            <span className="text-base">
+            <span className="text-sm">
               {new Date(post.created_at).toLocaleString()}
             </span>
           </div>

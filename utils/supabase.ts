@@ -39,7 +39,14 @@ export const timeLine = async ()=>{
   const supabase=createClient();
   const {data,error}=await supabase
     .from('posts')
-    .select('*')
+    .select(`
+      id,
+      content,
+      created_at,
+      users(
+        username
+      )
+    `)
     .order('created_at',{ascending:false})
   if (error) {
     console.error(error.message)

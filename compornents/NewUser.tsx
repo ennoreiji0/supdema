@@ -1,4 +1,4 @@
-import { useState } from "react";
+/*import { useState } from "react";
 import { createClient } from "@/utils/supabase";
 import NormalButton from "./NormalButton";
 
@@ -47,4 +47,4 @@ export default function NewUser(){
                 >新規登録</NormalButton>
       </div>
     )
-}
+}*/
