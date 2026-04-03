@@ -9,9 +9,7 @@ export default function NormalButton({children, className, ...props}:Props){
       w-fit
       cursor-pointer 
       rounded-full 
-      bg-[#3333dd] 
-      border-1
-      border-[#5f5f5f]
+      bg-[#4E95D9] 
       text-[#f0f0f0] 
       px-3 py-1
       shadow-[0_5px_0_0_#999999] 

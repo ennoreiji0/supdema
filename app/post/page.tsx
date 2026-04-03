@@ -22,7 +22,7 @@ export default function Post(){
           value={content}
           onChange={(e)=>setContent(e.target.value)}/>
       <div className="text-right space-y-2">
-        <NormalButton className="bg-[#2222bb] text-[#ffff00]"
+        <NormalButton className="text-[#ffff00]"
           disabled={content==="" || !buttonOK}
           onClick={async ()=>{
             if(content===""){
@@ -47,8 +47,6 @@ export default function Post(){
           }}
         >Supply!</NormalButton>
         <br />
-        <NormalButton 
-          disabled={content==="" || !buttonOK}>メモとして保存</NormalButton>
       </div>
     </div>
   )

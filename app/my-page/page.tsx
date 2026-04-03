@@ -41,7 +41,7 @@ export default function MyPage(){
   }
 
   return (
-    <div>
+    <div className="space-y-2">
       <Header/>
       <h1>マイページ</h1>
       <NormalButton 
