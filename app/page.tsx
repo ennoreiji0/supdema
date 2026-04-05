@@ -29,11 +29,11 @@ export default function Home(){
 
 
   return (
-    <div>
+    <div className="text-3xl">
       
 
       <MyLink href="/login">ログイン</MyLink>
-      <br/>
+      <div className="h-4"></div>
       <MyLink href="/sinup">新規登録</MyLink>
       
     </div>

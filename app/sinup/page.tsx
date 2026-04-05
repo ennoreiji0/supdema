@@ -54,7 +54,7 @@ export default function NewUser(){
           　　パスワード:<input type="text" className="border-2" 
             value={password}
             onChange={(e)=>setPassword(e.target.value)}
-          />
+          />(6文字以上)
         </div>
         <div>
           ユーザー名:<input type="text" className="border-2"

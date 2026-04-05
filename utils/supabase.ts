@@ -23,7 +23,7 @@ export const saveDemand = async (content: string) => {
   const user=await getCurrentUser()
   const { data, error } = await supabase
     .from('posts')
-    .insert([{ content:content ,user_id:user?.id }]);
+    .insert([{ content:content ,user_id:user?.id ,likes:0}]);
 
   if (error) {
     console.error(error.message)
@@ -45,7 +45,8 @@ export const timeLine = async ()=>{
       created_at,
       users(
         username
-      )
+      ),
+      likes
     `)
     .order('created_at',{ascending:false})
   if (error) {

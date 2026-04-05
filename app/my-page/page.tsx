@@ -64,6 +64,16 @@ export default function MyPage(){
           handleProfile()
         }}
       >プロフィール変更</NormalButton>
+      <br />
+      <NormalButton
+        className="text-[#f93636]"
+        onClick={()=>{
+          setButtonOK(false)
+          router.push('/my-page/delete-account')
+          
+        }}
+        disabled={!buttonOK}
+      >アカウント削除</NormalButton>
     </div>
     
     )
