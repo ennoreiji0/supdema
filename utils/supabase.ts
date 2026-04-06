@@ -23,14 +23,16 @@ export const saveDemand = async (content: string) => {
   const user=await getCurrentUser()
   const { data, error } = await supabase
     .from('posts')
-    .insert([{ content:content ,user_id:user?.id ,likes:0}]);
-
+    .insert([{ content:content ,user_id:user?.id ,likes:0}])
+    .select();
+  //console.log(data);
+  //alert(data)
   if (error) {
     console.error(error.message)
     return false;
   }else{
     console.log("OK!!!")
-    return true;
+    return data;
   }
   //return data;
 }
@@ -43,6 +45,9 @@ export const timeLine = async ()=>{
       id,
       content,
       created_at,
+      tags(
+        tag_name
+      ),
       users(
         username
       ),
@@ -62,8 +67,44 @@ export const getPosts=async(name:string ,value:string)=>{
   const supabase=createClient()
   const {data,error}=await supabase
     .from('posts')
-    .select('*')
+    .select(`
+      id,
+      content,
+      created_at,
+      tags(
+        tag_name
+      ),
+      users(
+        username
+      ),
+      likes
+    `)
     .eq(name,value)
   
   return data
+}
+
+/*export const getHashTags=async(postID:string)=>{
+  const supabase=createClient()
+  const {data,error}=await supabase
+    .from('tags')
+    .select('tag_name')
+    .eq('post_id',postID)
+  if(error){
+    return false
+  }else{
+    return data;
+  }
+}*/
+
+export const setHashTags=async(postID:string,tags:string[])=>{
+  const supabase=createClient()
+  for(let i=0;i<tags.length;i++){
+    const {error}=await supabase
+      .from('tags')
+      .insert([{post_id:postID,tag_name:tags[i]}])
+    if(error){
+      console.log(error)
+    }
+  }
 }

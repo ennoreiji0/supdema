@@ -9,8 +9,11 @@ type Post={
   id:string;
   content:string;
   created_at:string;
+  tags:{
+    tag_name:string;
+  }[]
   users:{
-    username:string
+    username:string;
   }
   likes:number
 }
@@ -18,6 +21,7 @@ type Post={
 export default function Search(){
   const [posts,setPosts]=useState<Post[]>([])
   const [likes,setLikes]=useState<Record<string,boolean>>({})
+  //const [tags,setTags]=useState<string[]>([])
   const supabase=createClient()
 
   const refresh=async()=>{
@@ -26,6 +30,7 @@ export default function Search(){
       setPosts(nowPosts as any as Post[])
       console.log(nowPosts)
     }
+    
     initializeLikes(posts)
   }
 
@@ -76,6 +81,11 @@ const initializeLikes = (newPosts: Post[]) => {
           <div key={post.id} className="bg-slate-700 p-3 text-slate-300">
             <p className="text-sm font-bold">{post.users?.username}</p>
             <p>{post.content}</p>
+            <div className="text-xs text-[#77a9f8]">
+              {post.tags?.map((t) => (
+                <p key={t.tag_name}>#{t.tag_name}</p>
+              ))}
+            </div>
             <span className="text-sm">
               {new Date(post.created_at).toLocaleString()}
             </span>
@@ -86,7 +96,7 @@ const initializeLikes = (newPosts: Post[]) => {
                 onClick={()=>{
                   handleLike(post.id)
                 }}
-              >★</NormalButton>
+              >わかる!</NormalButton>
               <span className="ml-2">{likes[post.id]? post.likes+1 : post.likes}</span>
             </span>
           </div>

@@ -10,6 +10,13 @@ type Post={
   id:string;
   content:string;
   created_at:string;
+  tags:{
+    tag_name:string;
+  }[]
+  users:{
+    username:string;
+  }
+  likes:number
 }
 
 export default function MyDemand(){
@@ -22,7 +29,7 @@ export default function MyDemand(){
       if(user){
         const newPosts=await getPosts('user_id',user.id)
         if(newPosts){
-          setPosts(newPosts)
+          setPosts(newPosts as any as Post[])
         }
       }
     }
@@ -38,6 +45,11 @@ export default function MyDemand(){
           <div key={post.id} className="flex bg-slate-700 p-3 text-slate-300">
             <div>
               <p className="text-xl break-all">{post.content}</p>
+              <div className="text-xs text-[#77a9f8]">
+                {post.tags?.map((t) => (
+                  <p key={t.tag_name}>#{t.tag_name}</p>
+                ))}
+              </div>
               <span className="text-xs text-slate-400">
                 {new Date(post.created_at).toLocaleString()}
               </span>

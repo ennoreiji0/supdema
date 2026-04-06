@@ -2,16 +2,18 @@
 import { useState,useEffect } from "react";
 import { createClient } from "@/utils/supabase";
 import NormalButton from "@/compornents/NormalButton";
+import Em from "@/compornents/Em";
 
 export default function NewUser(){
     const [email,setEmail]=useState<string>('')
     const [password,setPassword]=useState<string>('')
     const [userName,setUserName]=useState<string>('')
     const [sendOK,setSendOK]=useState<boolean>(false);
+    const [errorAppear,setErrorAppear]=useState<string>('')
     const supabase=createClient()
 
     useEffect(()=>{
-        if(email==="" || password==="" || userName===""){
+        if(email==="" || password.length<6 || userName===""){
           setSendOK(false)
         }else{
           setSendOK(true)
@@ -26,6 +28,7 @@ export default function NewUser(){
       const {error}=await supabase.auth.signUp({email,password})
       if(error){
         console.log(error)
+        setErrorAppear(error.message)
       }else{
       
         console.log("okay")
@@ -36,34 +39,41 @@ export default function NewUser(){
           const { error } = await supabase
             .from('users')
             .insert([{ id:user?.id ,username:userName }]);
-          console.log("error:",error)
+          if(error)setErrorAppear(error.details)
+
         }
         window.location.href = '/dashboard'
       }
     }
 
     return (
-      <div>
-        <div>
-          メールアドレス:<input type="text" className="border-2" 
+      <form className="text-xl">
+        <div className="m-4">
+          <p>メールアドレス</p>
+          <input type="email" required className="border-2" 
             value={email} 
             onChange={(e)=>setEmail(e.target.value)}
           />
         </div>
-        <div>
-          　　パスワード:<input type="text" className="border-2" 
+        <div className="m-4">
+          <p>パスワード</p>
+          <input type="text" className="border-2" 
             value={password}
             onChange={(e)=>setPassword(e.target.value)}
-          />(6文字以上)
+          />
+          <p><Em>(6文字以上)</Em></p>
         </div>
-        <div>
-          ユーザー名:<input type="text" className="border-2"
+        <div className="m-4">
+          <p>ユーザー名</p>
+          <input type="text" className="border-2"
             value={userName}
             onChange={(e)=>setUserName(e.target.value)}/>
         </div>
-        <NormalButton onClick={handleSinUp}
+        <p className="mt-4">ユーザー名はほかのユーザーにも見られるので、個人情報は書かないで下さい</p>
+        <NormalButton type="submit" onClick={handleSinUp}
                   disabled={!sendOK}
                 >新規登録</NormalButton>
-      </div>
+        <div>{errorAppear}</div>
+      </form>
     )
 }

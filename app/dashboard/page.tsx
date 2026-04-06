@@ -9,12 +9,13 @@ export default function HomePage(){
     <div className="flex justify-center p-7">
       <img src="/images/supdema.png" className="h-30"/>
     </div>
+    <p className="text-2xl"><MyLink href="my-page">マイページ</MyLink></p>
     <div className="flex space-x-5 text-center justify-center flex-col sm:flex-row gap-4">
       <ButtonInHome href="/post" label="Supply" description="投稿しよう"></ButtonInHome>
       <ButtonInHome href="/see" label="見る" description="みんなのDemand"></ButtonInHome>
       <ButtonInHome href="/my-demand" label="メモ" description="自分のDemand"></ButtonInHome>
       
     </div>
-    <MyLink href="my-page">マイページ</MyLink>
+    
     </div>)
 }

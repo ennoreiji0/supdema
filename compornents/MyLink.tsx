@@ -16,13 +16,13 @@ export default function MyLink({href,target,children,className}:Props){
     <a 
       href={href} 
       className={twMerge(`
-        text-[#035ff3] 
+        text-[#5192fb]
         font-bold 
         underline`
         ,className)} 
       target={target}>{children}</a> : <Link 
       href={href} className={twMerge(`
-        text-[#035ff3] 
+        text-[#5192fb]
         font-bold 
         underline`
         ,className)}>{children}</Link>

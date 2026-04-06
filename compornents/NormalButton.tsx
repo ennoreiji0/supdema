@@ -15,7 +15,7 @@ export default function NormalButton({children, className, ...props}:Props){
       shadow-[0_5px_0_0_#999999] 
       transition-all 
       duration-100 
-
+      
       active:enabled:translate-y-[4px]
       active:enabled:shadow-[0_1px_0_0]
 
