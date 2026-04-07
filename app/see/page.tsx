@@ -21,12 +21,15 @@ type Post={
 export default function Search(){
   const [posts,setPosts]=useState<Post[]>([])
   const [likes,setLikes]=useState<Record<string,boolean>>({})
+  const [message,setMessage]=useState<string>('読み込み中...')
   //const [tags,setTags]=useState<string[]>([])
   const supabase=createClient()
 
   const refresh=async()=>{
+    setMessage('読み込み中...')
     const nowPosts=await timeLine()
     if(nowPosts){
+      setMessage('')
       setPosts(nowPosts as any as Post[])
       console.log(nowPosts)
     }
@@ -76,14 +79,15 @@ const initializeLikes = (newPosts: Post[]) => {
         onClick={refresh}
         className="mb-5"
       >タイムラインを更新</NormalButton>
+      <p className="m-7 text-center">{message}</p>
       <div className="space-y-3">
         {posts?.map((post)=>(
-          <div key={post.id} className="bg-slate-700 p-3 text-slate-300">
-            <p className="text-sm font-bold">{post.users?.username}</p>
+          <div key={post.id} className="bg-slate-700 p-3 text-slate-200">
+            <p className="text-sm font-bold text-slate-300">{post.users?.username}</p>
             <p>{post.content}</p>
-            <div className="text-xs text-[#77a9f8]">
+            <div className="text-base text-[#77a9f8] space-x-1">
               {post.tags?.map((t) => (
-                <p key={t.tag_name}>#{t.tag_name}</p>
+                <span key={t.tag_name}>#{t.tag_name}</span>
               ))}
             </div>
             <span className="text-sm">

@@ -16,7 +16,6 @@ export default function Post(){
       <Header/>
       <div className="pt-5 pb-3">
         <p>Demand(困りごと・要望)をSupplyしよう！</p>
-        <p>自分のメモとして保存することもできます</p>
       </div>
       
       
