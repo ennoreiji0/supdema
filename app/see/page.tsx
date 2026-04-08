@@ -3,7 +3,10 @@
 import Header from "@/compornents/Header"
 import NormalButton from "@/compornents/NormalButton"
 import { createClient, getPosts, timeLine } from "@/utils/supabase"
+import { useRouter } from "next/navigation"
 import { useEffect, useState } from "react"
+import { increaseLike } from "@/utils/handlePost"
+import GoodButton from "@/compornents/GoodButton"
 
 type Post={
   id:string;
@@ -24,6 +27,7 @@ export default function Search(){
   const [message,setMessage]=useState<string>('読み込み中...')
   //const [tags,setTags]=useState<string[]>([])
   const supabase=createClient()
+  const router=useRouter()
 
   const refresh=async()=>{
     setMessage('読み込み中...')
@@ -37,18 +41,23 @@ export default function Search(){
     initializeLikes(posts)
   }
 
-  const handleLike=async(postId:string)=>{
+  /*const handleLike=async(postId:string)=>{
     if(likes[postId])return;
     setLikes((prev)=>({...prev,[postId]:true}))
 
-    const {error}=await supabase.rpc('increment_likes',{
+    const result=await increaseLike(postId)
+    if(result){
+      setLikes((prev) => ({ ...prev, [postId]: false }));
+    }
+    /*const {error}=await supabase.rpc('increment_likes',{
       row_id:postId
     })
     if(error){
       console.log(error)
       setLikes((prev) => ({ ...prev, [postId]: false }));
     }
-  }
+   
+  }*/
 
 const initializeLikes = (newPosts: Post[]) => {
   setLikes((prev) => {
@@ -82,7 +91,11 @@ const initializeLikes = (newPosts: Post[]) => {
       <p className="m-7 text-center">{message}</p>
       <div className="space-y-3">
         {posts?.map((post)=>(
-          <div key={post.id} className="bg-slate-700 p-3 text-slate-200">
+          <div 
+            key={post.id} 
+            className="bg-slate-700 p-3 text-slate-200"
+            onClick={()=>{router.push(`/posts/${post.id}`)}}
+          >
             <p className="text-sm font-bold text-slate-300">{post.users?.username}</p>
             <p>{post.content}</p>
             <div className="text-base text-[#77a9f8] space-x-1">
@@ -94,14 +107,11 @@ const initializeLikes = (newPosts: Post[]) => {
               {new Date(post.created_at).toLocaleString()}
             </span>
             <span className="ml-3 text-sm">
-              <NormalButton
-                className="disabled:text-yellow-100 disabled:bg-red-300"
-                disabled={likes[post.id]}
-                onClick={()=>{
-                  handleLike(post.id)
-                }}
-              >わかる!</NormalButton>
-              <span className="ml-2">{likes[post.id]? post.likes+1 : post.likes}</span>
+              <GoodButton 
+                postId={post.id} 
+                likes={post.likes}
+              />
+              
             </span>
           </div>
         ))}
