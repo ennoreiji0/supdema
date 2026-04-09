@@ -1,7 +1,7 @@
 'use client'
 
-import Header from "@/compornents/Header"
-import NormalButton from "@/compornents/NormalButton"
+import Header from "@/components/Header"
+import NormalButton from "@/components/NormalButton"
 import { createClient } from "@/utils/supabase"
 import { useState } from "react"
 

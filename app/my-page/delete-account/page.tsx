@@ -1,4 +1,4 @@
-import MyLink from "@/compornents/MyLink";
+import MyLink from "@/components/MyLink";
 
 export default function DeleteAccount(){
   return (

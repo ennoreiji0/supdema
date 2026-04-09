@@ -6,17 +6,19 @@ import { increaseLike } from "@/utils/handlePost";
 
 export default function GoodButton({ 
   postId,
-  likes
+  likes,
+  isMine
 }: { 
   postId: string; 
-  likes: number
+  likes: number;
+  isMine:boolean
 }){
   const [like,setLike]=useState<boolean>(false)
   return (
     <div>
       <NormalButton
         className="disabled:text-yellow-100 disabled:bg-red-300"
-        disabled={like}
+        disabled={like || isMine}
         onClick={(e)=>{
           e.stopPropagation()
           setLike(true)

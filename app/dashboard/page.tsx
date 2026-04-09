@@ -1,7 +1,7 @@
 'use client'
 
-import ButtonInHome from "@/compornents/ButtonInHome"
-import MyLink from "@/compornents/MyLink"
+import ButtonInHome from "@/components/ButtonInHome"
+import MyLink from "@/components/MyLink"
 
 export default function HomePage(){
   return (

@@ -1,8 +1,8 @@
 'use client'
 import { useRouter } from "next/navigation"
 import { useState } from "react"
-import Header from "@/compornents/Header"
-import NormalButton from "@/compornents/NormalButton"
+import Header from "@/components/Header"
+import NormalButton from "@/components/NormalButton"
 import { saveDemand, setHashTags } from "@/utils/supabase"
 import { send } from "process"
 

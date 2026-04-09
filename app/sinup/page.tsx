@@ -1,8 +1,8 @@
 'use client'
 import { useState,useEffect } from "react";
 import { createClient } from "@/utils/supabase";
-import NormalButton from "@/compornents/NormalButton";
-import Em from "@/compornents/Em";
+import NormalButton from "@/components/NormalButton";
+import Em from "@/components/Em";
 
 export default function NewUser(){
     const [email,setEmail]=useState<string>('')

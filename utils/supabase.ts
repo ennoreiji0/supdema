@@ -23,7 +23,7 @@ export const saveDemand = async (content: string) => {
   const user=await getCurrentUser()
   const { data, error } = await supabase
     .from('posts')
-    .insert([{ content:content ,user_id:user?.id ,likes:0}])
+    .insert([{ content:content ,user_id:user?.id ,likes:1}])
     .select();
   //console.log(data);
   //alert(data)
@@ -48,6 +48,7 @@ export const timeLine = async ()=>{
       tags(
         tag_name
       ),
+      user_id,
       users(
         username
       ),
@@ -74,13 +75,14 @@ export const getPosts=async(name:string ,value:string)=>{
       tags(
         tag_name
       ),
+      user_id,
       users(
         username
       ),
       likes
     `)
     .eq(name,value)
-  
+    console.log(data)
   return data
 }
 

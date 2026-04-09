@@ -1,8 +1,8 @@
 'use client'
 
-import Em from "@/compornents/Em"
-import Header from "@/compornents/Header"
-import MyLink from "@/compornents/MyLink"
+import Em from "@/components/Em"
+import Header from "@/components/Header"
+import MyLink from "@/components/MyLink"
 /*import HomePage from "@/app/dashboard/page"
 import { createClient } from "@/utils/supabase"
 import { useEffect, useState } from "react"

@@ -1,6 +1,6 @@
 'use client'
-import Header from "@/compornents/Header"
-import NormalButton from "@/compornents/NormalButton"
+import Header from "@/components/Header"
+import NormalButton from "@/components/NormalButton"
 import { createClient, getPosts } from "@/utils/supabase"
 import { fetchExternalImage } from "next/dist/server/image-optimizer"
 import { useEffect, useState } from "react"
