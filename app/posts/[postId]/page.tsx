@@ -1,11 +1,20 @@
 import BackButton from "@/components/BackButton";
 import { createClient } from "@/utils/server";
-import { notFound } from "next/navigation";
+import { notFound, redirect} from "next/navigation";
 import NormalButton from "@/components/NormalButton";
-import { increaseLike } from "@/utils/handlePost";
-import GoodButton from "@/components/GoodButton";
 import { Post } from "@/utils/types";
 import PostCard from "@/components/PostCard";
+import { setSolve } from "@/utils/supabase";
+import { SolveButton } from "@/components/SolveButton";
+
+type FanWithUser = {
+  id: string;
+  user_id: string;
+  users: {
+    username: string;
+  } | null; 
+};
+
 export default async function PostPage({
   params,
 }: {
@@ -13,6 +22,9 @@ export default async function PostPage({
 }) {
   const { postId } = await params;
   const supabase= await createClient()
+  let isMyPost=false;
+  let isSolved=false;
+  let isStarted=false;
 
   const {data:{user}}=await supabase.auth.getUser()
   console.log(user)
@@ -39,14 +51,117 @@ export default async function PostPage({
     notFound();
   }
 
+  if(post.user_id===user?.id){
+    isMyPost=true;
+  }
+
+  if (user) {
+    // DBにデータがあるかチェック
+    const { data } = await supabase
+      .from('solve')
+      .select('id')
+      .eq('post_id', postId)
+      .eq('user_id', user.id)
+      .eq('action', 'solve')
+      .single()
+    if (data) isSolved = true // データがあれば「済み」
+  }
+  if (user) {
+    // DBにデータがあるかチェック
+    const { data } = await supabase
+      .from('solve')
+      .select('id')
+      .eq('post_id', postId)
+      .eq('user_id', user.id)
+      .eq('action', 'started')
+      .single()
+    if (data) isStarted = true // データがあれば「済み」
+  }
+  
+
+  /*const { data: countSolve,error:error1 } = await supabase
+  .rpc('get_count', { 
+    target_post_id: postId, 
+    target_action: 'solve'
+  })
+
+  const { data: countStarted,error:error2 } = await supabase
+  .rpc('get_count', { 
+    target_post_id: postId, 
+    target_action: 'started'
+  })*/
+
+  const { data: fans, count:countSolve } = await supabase
+  .from('solve')
+  .select(`
+    id,
+    user_id,
+    post_id,
+    action,
+    users (
+      username
+    )
+  `, { count: 'exact' })
+  .eq('post_id', postId)
+  .eq('action','solve')
+  .limit(10)
+  .returns<FanWithUser[]>();
+
+
+
+  const { data: developers, count:countStarted } = await supabase
+  .from('solve')
+  .select(`
+    id,
+    user_id,
+    post_id,
+    action,
+    users (
+      username
+    )
+  `, { count: 'exact' })
+  .eq('post_id', postId)
+  .eq('action','started')
+  .limit(10)
+  .returns<FanWithUser[]>();
+
   return (
     <div>
       <BackButton/>
       <div className="space-y-3 bg-slate-700 p-3">
         <PostCard post={post} userId={user?.id}/>
         <div className="text-sm">
-          <NormalButton>つくってみたい！</NormalButton>
-          <NormalButton>つくりはじめたよ</NormalButton>
+          <SolveButton
+            postId={post.id}
+            action="solve"
+            value="解決したい！"
+            isPushed={isSolved}
+            isMyPost={isMyPost}
+            count={countSolve||0}
+          ></SolveButton>
+          <div className="space-x-1">
+            {fans?.map((fan) => (
+              <span key={fan.id}>
+                {fan.users?.username || '名無し'}
+              </span>
+            ))}
+          </div>
+          <div className="h-4"></div>
+          <SolveButton
+            postId={post.id}
+            action="started"
+            value="着手したよ！"
+            isPushed={isStarted}
+            isMyPost={isMyPost}
+            count={countStarted||0}
+          ></SolveButton>
+          <div>
+            {developers?.map((developer)=>(
+              <span key={developer.id}>
+                {developer.users?.username||'名無し'}
+              </span>
+            ))}
+          </div>
         </div>
       </div>
     </div>

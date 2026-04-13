@@ -1,4 +1,5 @@
 import { createBrowserClient } from '@supabase/ssr'
+import { TurborepoAccessTraceResult } from 'next/dist/build/turborepo-access-trace'
 
 export const createClient = () =>
   createBrowserClient(
@@ -110,3 +111,38 @@ export const setHashTags=async(postID:string,tags:string[])=>{
     }
   }
 }
+
+export const setSolve=async(userId:string,postId:string,action:string)=>{
+  const supabase=createClient()
+  const { data: existing } = await supabase
+    .from('solve') // テーブル名は君の設定に合わせてな！
+    .select('id')
+    .eq('post_id', postId)
+    .eq('user_id', userId)
+    .eq('action', action)
+    .single()
+
+  if(existing){
+    const {error}=await supabase
+      .from('solve')
+      .delete()
+      .eq('id',existing.id)
+    if(error){
+      console.log(error)
+      return false
+    }
+    return true;
+  }else{
+    const {error}=await supabase
+      .from('solve')
+      .insert([{user_id:userId,post_id:postId,action:action}])
+    if(error){
+      console.log(error)
+      return false
+    }
+    return true;
+  }
+  
+  
+}
+
