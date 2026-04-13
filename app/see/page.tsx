@@ -45,6 +45,12 @@ export default function Search(){
         onClick={refresh}
         className="mb-5"
       >タイムラインを更新</NormalButton>
+      <NormalButton
+        onClick={()=>{
+          router.push("/search")
+        }}
+      >検索
+      </NormalButton>
       <p className="m-7 text-center">{message}</p>
       <div className="space-y-3">
         {posts?.map(post=> 
