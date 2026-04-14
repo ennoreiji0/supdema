@@ -1,3 +1,4 @@
+import Header from "@/components/Header";
 import PostCard from "@/components/PostCard";
 import SearchForm from "@/components/SearchForm";
 import { createClient } from "@/utils/server";
@@ -43,13 +44,12 @@ export default async function SearchHashTag({
 
   return (
     <div>
+      <Header/>
       <SearchForm initialValue={tag||''}/>
       
       <div>
         {!tag ? (
           <>
-            <p className="text-gray-500">ハッシュタグを入力して検索！</p>
-            <hr/>
           </>
         ) : results.length > 0 ? (
           <div className="grid gap-4">

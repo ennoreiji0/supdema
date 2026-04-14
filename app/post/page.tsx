@@ -5,6 +5,7 @@ import Header from "@/components/Header"
 import NormalButton from "@/components/NormalButton"
 import { saveDemand, setHashTags } from "@/utils/supabase"
 import { send } from "process"
+import MyLink from "@/components/MyLink"
 
 export default function Post(){
   const router=useRouter()
@@ -15,7 +16,8 @@ export default function Post(){
     <div className="text-xl">
       <Header/>
       <div className="pt-5 pb-3">
-        <p>Demand(困りごと・要望)をSupplyしよう！</p>
+        <p>Demand(困りごと・要望・需要)をSupplyしよう！</p>
+        <p className="text-sm">ここは、あなたのDemandを誰かに叶えてもらうための場所です。自分の手柄や権利を大切にしたい内容は、ここには書かないでください。利用規約は<MyLink href="/kiyaku">こちら</MyLink></p>
       </div>
       
       
