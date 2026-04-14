@@ -11,3 +11,10 @@ export type Post={
   user_id:string;
   likes:number
 }
+
+export type ChatInfo={
+  id:string;
+  user_id:string;
+  username:string;
+  content:string
+}

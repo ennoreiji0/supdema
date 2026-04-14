@@ -6,6 +6,7 @@ import { Post } from "@/utils/types";
 import PostCard from "@/components/PostCard";
 import { setSolve } from "@/utils/supabase";
 import { SolveButton } from "@/components/SolveButton";
+import Chat from "@/components/Chat";
 
 type FanWithUser = {
   id: string;
@@ -164,6 +165,7 @@ export default async function PostPage({
           </div>
         </div>
       </div>
+      <Chat postId={postId}/>
     </div>
   );
 }
