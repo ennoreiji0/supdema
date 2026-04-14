@@ -8,13 +8,7 @@ import { setSolve } from "@/utils/supabase";
 import { SolveButton } from "@/components/SolveButton";
 import Chat from "@/components/Chat";
 
-type FanWithUser = {
-  id: string;
-  user_id: string;
-  users: {
-    username: string;
-  } | null; 
-};
+
 
 export default async function PostPage({
   params,
@@ -91,7 +85,7 @@ export default async function PostPage({
     target_post_id: postId, 
     target_action: 'started'
   })*/
-
+  /*
   const { data: fans, count:countSolve } = await supabase
   .from('solve')
   .select(`
@@ -125,7 +119,7 @@ export default async function PostPage({
   .eq('action','started')
   .limit(10)
   .returns<FanWithUser[]>();
-
+  */
   return (
     <div>
       <BackButton/>
@@ -138,31 +132,15 @@ export default async function PostPage({
             value="解決したい！"
             isPushed={isSolved}
             isMyPost={isMyPost}
-            count={countSolve||0}
           ></SolveButton>
-          <div className="space-x-1">
-            {fans?.map((fan) => (
-              <span key={fan.id}>
-                {fan.users?.username || '名無し'}
-              </span>
-            ))}
-          </div>
-          <div className="h-4"></div>
+
           <SolveButton
             postId={post.id}
             action="started"
             value="着手したよ！"
             isPushed={isStarted}
             isMyPost={isMyPost}
-            count={countStarted||0}
           ></SolveButton>
-          <div>
-            {developers?.map((developer)=>(
-              <span key={developer.id}>
-                {developer.users?.username||'名無し'}
-              </span>
-            ))}
-          </div>
         </div>
       </div>
       <Chat postId={postId}/>

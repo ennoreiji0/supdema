@@ -18,3 +18,11 @@ export type ChatInfo={
   username:string;
   content:string
 }
+
+export type FanWithUser = {
+  id: string;
+  user_id: string;
+  users: {
+    username: string;
+  } | null; 
+};

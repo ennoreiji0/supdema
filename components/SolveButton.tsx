@@ -4,25 +4,49 @@ import { createClient } from "@/utils/supabase"
 import NormalButton from "./NormalButton"
 import { setSolve } from "@/utils/supabase"
 import { useRouter } from "next/navigation"
-import { useState } from "react"
+import { useEffect, useState } from "react"
+import { FanWithUser } from "@/utils/types"
 
 export function SolveButton(
-  {postId,action,value,isPushed,isMyPost,count}:
+  {postId,action,value,isPushed,isMyPost}:
   {
     postId:string,
     action:string,
     value:string,
     isPushed:boolean,
     isMyPost:boolean,
-    count:number
   }
   ){
 
   const [buttonOK,setButtonOK]=useState<boolean>(isPushed)
-  const [nowCount,setNowCount]=useState<number>(count);  
-
+  const [nowCount,setNowCount]=useState<number>(0);  
+  const [fans,setFans]=useState<FanWithUser[]|null>(null)
   const supabase=createClient()
   const router=useRouter()
+
+  useEffect(()=>{
+    const fetchFans=async()=>{
+      const { data, count:countSolve } = await supabase
+        .from('solve')
+        .select(`
+          id,
+          user_id,
+          post_id,
+          action,
+          users (
+            username
+          )
+        `, { count: 'exact' })
+        .eq('post_id', postId)
+        .eq('action',action)
+        .limit(10)
+        .returns<FanWithUser[]>();
+      setNowCount(countSolve||0);
+      setFans(data)
+    }
+    fetchFans();
+  },[])
+
   const handleSolve=async (action:string,postId:string)=>{
       if(isMyPost){
         return;
@@ -50,15 +74,22 @@ export function SolveButton(
 
     return (
         <div>
-            <NormalButton
-              className={buttonOK?"text-yellow-100 bg-red-300":""}
-              onClick={async()=>{
-                handleSolve(action,postId)
-              }}
-              disabled={isMyPost}
-            >{value}
-            </NormalButton>
-            <span>{nowCount}</span>
+          <NormalButton
+            className={buttonOK?"text-yellow-100 bg-red-300":""}
+            onClick={async()=>{
+              handleSolve(action,postId)
+            }}
+            disabled={isMyPost}
+          >{value}
+          </NormalButton>
+          <span>{nowCount}</span>
+          <div className="space-x-1">
+            {fans?.map((fan) => (
+              <span key={fan.id}>
+                {fan.users?.username || '名無し'}
+              </span>
+            ))}
+          </div>
         </div>
     )
 }
