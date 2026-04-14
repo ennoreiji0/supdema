@@ -1,48 +1,64 @@
-import { createClient } from "@/utils/server"
+'use client'
+import { createClient } from "@/utils/supabase"
 import NormalButton from "./NormalButton"
 import Fukidashi from "./Fukidashi"
 import SendComment from "./SendComment";
 import { ChatInfo } from "@/utils/types";
 import ChatView from "./ChatView";
+import { useEffect, useState } from "react";
 
 
-export default async function Chat({
+export default function Chat({
   postId,
 }:{
   postId:string
 }){
-  
-  const supabase=await createClient()
-  const {data:{user}}=await supabase.auth.getUser()
-  const {data}=await supabase
-    .from('comments')
-    .select(`id,user_id,username,content`)
-    .eq('post_id',postId)
-    .order('created_at',{ascending:true})
-    .returns<ChatInfo[]>()
-  
-  const {data:test}=await supabase
-    .from('comments')
-    .select('*')
-    .eq('post_id',postId)
-  
-  const {data:username}=await supabase
-    .from('users')
-    .select(`username`)
-    .eq('id',user?.id)
-    .single()
-  console.log("comment",test,data,postId)
+  const [userId,setUserId]=useState<string|undefined>('')
+  const [userName,setUserName]=useState<string>('')
+  const [chatData,setChatData]=useState<ChatInfo[]|null>(null)
+  const supabase=createClient()
+  useEffect(()=>{
+    const fetchComments=async()=>{
+      const {data:{user}}=await supabase.auth.getUser()
+      setUserId(user?.id)
+      const {data}=await supabase
+        .from('comments')
+        .select(`id,user_id,username,content`)
+        .eq('post_id',postId)
+        .order('created_at',{ascending:true})
+        .returns<ChatInfo[]>()
+      setChatData(data)
+      const {data:test}=await supabase
+        .from('comments')
+        .select('*')
+        .eq('post_id',postId)
+
+      const {data:username}=await supabase
+        .from('users')
+        .select(`username`)
+        .eq('id',user?.id)
+        .single()
+      setUserName(username?.username)
+      console.log("comment",data,postId)
+    }
+    fetchComments();
+  },[])
+
+  if (!chatData) {
+    return <div className="p-4 text-gray-500">読み込み中...</div>;
+  }
+
   return (
     <div>
       <ChatView
         postId={postId}
-        nowUserId={user?.id}
-        initialComments={data??[]}
+        nowUserId={userId}
+        initialComments={chatData??[]}
       />
       <SendComment
-        username={username?.username}
+        username={userName}
         postId={postId}
-        userId={user?.id}
+        userId={userId}
       />
     </div>
   )
