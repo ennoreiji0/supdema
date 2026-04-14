@@ -58,7 +58,7 @@ export default async function SearchHashTag({
             ))}
           </div>
         ) : (
-          <p className="text-gray-500">「{tag}」に一致する投稿は見つからなかったぜ。</p>
+          <p className="text-gray-500">「{tag}」に一致する投稿は見つかりませんでした</p>
         )}
       </div>
     </div>

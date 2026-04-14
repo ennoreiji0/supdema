@@ -8,19 +8,20 @@ import { useEffect, useState } from "react"
 import { FanWithUser } from "@/utils/types"
 
 export function SolveButton(
-  {postId,action,value,isPushed,isMyPost}:
+  {postId,userId,action,value,isMyPost}:
   {
     postId:string,
+    userId:string|undefined,
     action:string,
     value:string,
-    isPushed:boolean,
     isMyPost:boolean,
   }
   ){
 
-  const [buttonOK,setButtonOK]=useState<boolean>(isPushed)
+  const [buttonOK,setButtonOK]=useState<boolean>(false)
   const [nowCount,setNowCount]=useState<number>(0);  
   const [fans,setFans]=useState<FanWithUser[]|null>(null)
+  const [isPushed,setIsPushed]=useState<boolean>(false);
   const supabase=createClient()
   const router=useRouter()
 
@@ -43,6 +44,20 @@ export function SolveButton(
         .returns<FanWithUser[]>();
       setNowCount(countSolve||0);
       setFans(data)
+    }
+    const checkPushed=async()=>{
+      if (userId) {
+        // DBにデータがあるかチェック
+        const { data } = await supabase
+          .from('solve')
+          .select('id')
+          .eq('post_id', postId)
+          .eq('user_id', userId)
+          .eq('action', 'solve')
+          .single()
+        if (data) setIsPushed(true); // データがあれば「済み」
+        setButtonOK(isPushed)
+      }
     }
     fetchFans();
   },[])

@@ -18,8 +18,6 @@ export default async function PostPage({
   const { postId } = await params;
   const supabase= await createClient()
   let isMyPost=false;
-  let isSolved=false;
-  let isStarted=false;
 
   const {data:{user}}=await supabase.auth.getUser()
   console.log(user)
@@ -50,76 +48,7 @@ export default async function PostPage({
     isMyPost=true;
   }
 
-  if (user) {
-    // DBにデータがあるかチェック
-    const { data } = await supabase
-      .from('solve')
-      .select('id')
-      .eq('post_id', postId)
-      .eq('user_id', user.id)
-      .eq('action', 'solve')
-      .single()
-    if (data) isSolved = true // データがあれば「済み」
-  }
-  if (user) {
-    // DBにデータがあるかチェック
-    const { data } = await supabase
-      .from('solve')
-      .select('id')
-      .eq('post_id', postId)
-      .eq('user_id', user.id)
-      .eq('action', 'started')
-      .single()
-    if (data) isStarted = true // データがあれば「済み」
-  }
   
-
-  /*const { data: countSolve,error:error1 } = await supabase
-  .rpc('get_count', { 
-    target_post_id: postId, 
-    target_action: 'solve'
-  })
-
-  const { data: countStarted,error:error2 } = await supabase
-  .rpc('get_count', { 
-    target_post_id: postId, 
-    target_action: 'started'
-  })*/
-  /*
-  const { data: fans, count:countSolve } = await supabase
-  .from('solve')
-  .select(`
-    id,
-    user_id,
-    post_id,
-    action,
-    users (
-      username
-    )
-  `, { count: 'exact' })
-  .eq('post_id', postId)
-  .eq('action','solve')
-  .limit(10)
-  .returns<FanWithUser[]>();
-
-
-
-  const { data: developers, count:countStarted } = await supabase
-  .from('solve')
-  .select(`
-    id,
-    user_id,
-    post_id,
-    action,
-    users (
-      username
-    )
-  `, { count: 'exact' })
-  .eq('post_id', postId)
-  .eq('action','started')
-  .limit(10)
-  .returns<FanWithUser[]>();
-  */
   return (
     <div>
       <BackButton/>
@@ -128,17 +57,17 @@ export default async function PostPage({
         <div className="text-sm">
           <SolveButton
             postId={post.id}
+            userId={user?.id}
             action="solve"
             value="解決したい！"
-            isPushed={isSolved}
             isMyPost={isMyPost}
           ></SolveButton>
 
           <SolveButton
             postId={post.id}
+            userId={user?.id}
             action="started"
             value="着手したよ！"
-            isPushed={isStarted}
             isMyPost={isMyPost}
           ></SolveButton>
         </div>
