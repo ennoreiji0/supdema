@@ -28,7 +28,7 @@ export default function MyPage(){
     const {data:{user}}=await supabase.auth.getUser()
     if(user?.email){
       const {data,error}=await supabase.auth.resetPasswordForEmail(user.email,{
-        redirectTo:"http://localhost:3000/password-change"
+        redirectTo:"https://supdema-iota.vercel.app/password-change"
       })
       alert("パスワード変更メールを送信しました")
       setButtonOK(true)

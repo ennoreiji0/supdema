@@ -12,7 +12,7 @@ export default function GoogleLoginButton() {
       provider: 'google',
       options: {
         // ログイン後に戻ってくるURL
-        redirectTo: `${window.location.origin}/auth/callback`,
+        redirectTo: `${process.env.NEXT_PUBLIC_SITE_URL}/auth/callback`,
       },
     })
   }
