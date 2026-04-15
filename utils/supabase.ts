@@ -4,7 +4,7 @@ import { TurborepoAccessTraceResult } from 'next/dist/build/turborepo-access-tra
 export const createClient = () =>
   createBrowserClient(
     process.env.NEXT_PUBLIC_SUPABASE_URL!,
-    process.env.NEXT_PUBLIC_SUPABASE_PUBLISHABLE_DEFAULT_KEY!
+    process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY!
   )
 
 // supabase.ts

@@ -1,9 +1,8 @@
-
 import { createServerClient, type CookieOptions } from '@supabase/ssr'
 import { cookies } from 'next/headers'
 
-export async function createClient() {
-  const cookieStore = await cookies()
+export async function createClient() { // async を追加
+  const cookieStore = await cookies() // ここで await するのがポイント！
 
   return createServerClient(
     process.env.NEXT_PUBLIC_SUPABASE_URL!,
@@ -17,14 +16,13 @@ export async function createClient() {
           try {
             cookieStore.set({ name, value, ...options })
           } catch (error) {
-            // Server Componentではsetを無視してもOK（Middlewareで処理するため）
+            // Server Componentからはsetできないことがあるけど無視
           }
         },
         remove(name: string, options: CookieOptions) {
           try {
             cookieStore.set({ name, value: '', ...options })
           } catch (error) {
-            // 同上
           }
         },
       },
