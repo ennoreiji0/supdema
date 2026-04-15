@@ -7,18 +7,23 @@ import { createClient } from "@/utils/supabase";
 export default function PostCard(
   {
     post,
-    userId
+    userId,
+    cursor
   }:
   {
     post:Post;
     userId:string|undefined;
+    cursor:boolean
   }
 ){
-
+  const router=useRouter()
   return (
-    <div  
-      className="bg-slate-700 p-3 text-slate-200"
-      
+
+    <div
+      className={cursor?"bg-slate-700 p-3 text-slate-200 w-full block cursor-pointer":"bg-slate-700 p-3 text-slate-200 w-full block"}
+      onClick={()=>{
+        router.push(`/posts/${post.id}`)
+      }}
     >
       <p className="text-sm font-bold text-slate-300">{post.users?.username}</p>
       <p>{post.content}</p>
@@ -40,5 +45,6 @@ export default function PostCard(
         }
       </span>
     </div>
+    
   )   
 }

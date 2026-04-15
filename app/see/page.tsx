@@ -55,8 +55,8 @@ export default function Search(){
       <div className="space-y-3">
         {posts?.map(post=> 
           <div key={post.id}
-            onClick={()=>{router.push(`/posts/${post.id}`)}}>
-            <PostCard post={post}  userId={nowUser}/>
+            >
+            <PostCard post={post}  userId={nowUser} cursor={true}/>
           </div>
         )}
       </div>

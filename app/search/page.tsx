@@ -54,7 +54,7 @@ export default async function SearchHashTag({
         ) : results.length > 0 ? (
           <div className="grid gap-4">
             {validResults.map((item) => (
-              <PostCard key={item.post_id} post={item.posts} userId={user?.id}/>
+              <PostCard key={item.post_id} post={item.posts} userId={user?.id} cursor={true}/>
             ))}
           </div>
         ) : (

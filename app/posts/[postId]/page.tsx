@@ -53,7 +53,7 @@ export default async function PostPage({
     <div>
       <BackButton/>
       <div className="space-y-3 bg-slate-700 p-3">
-        <PostCard post={post} userId={user?.id}/>
+        <PostCard post={post} userId={user?.id} cursor={false}/>
         <div className="text-sm">
           <SolveButton
             postId={post.id}
