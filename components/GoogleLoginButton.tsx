@@ -20,7 +20,7 @@ export default function GoogleLoginButton() {
       const {data:existing}=await supabase
         .from('users')
         .select('username')
-        .eq('id',user.id)
+        .eq('id',user?.id)
         .single()
       if(!existing){
         const { error } = await supabase
