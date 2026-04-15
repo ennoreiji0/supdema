@@ -17,9 +17,17 @@ export default function GoogleLoginButton() {
     })
     if(!error){
       const {data:{user}}=await supabase.auth.getUser()
-      const { error } = await supabase
+      const {data:existing}=await supabase
         .from('users')
-        .upsert([{ id:user?.id ,username:'名無し' }]);
+        .select('username')
+        .eq('id',user.id)
+        .single()
+      if(!existing){
+        const { error } = await supabase
+          .from('users')
+          .insert([{ id:user?.id ,username:'名無し' }]);
+      }
+      
     }
   }
 

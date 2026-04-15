@@ -78,7 +78,7 @@ export default function Post(){
                 setContent("投稿失敗・・・。")
               }
               setTimeout(()=>{
-                router.replace('/')
+                router.replace('/dashboard')
               },1000)
               
             },1000)
