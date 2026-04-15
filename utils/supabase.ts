@@ -22,19 +22,6 @@ export const saveDemand = async (content: string) => {
   }
   const supabase = createClient();
   const user=await getCurrentUser()
-  const { data: profile } = await supabase
-  .from('users')
-  .select('id')
-  .eq('id', user?.id)
-  .single();
-
-if (!profile) {
-  // プロフィールがなければ、この瞬間に作成！
-  await supabase.from('profiles').insert({ 
-    id: user?.id, 
-    username: user?.user_metadata.full_name || '名無し' 
-  });
-}
   const { data, error } = await supabase
     .from('posts')
     .insert([{ content:content ,user_id:user?.id ,likes:1}])
