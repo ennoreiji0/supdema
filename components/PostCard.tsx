@@ -29,7 +29,13 @@ export default function PostCard(
       <p>{post.content}</p>
       <div className="text-base text-[#77a9f8] space-x-1">
         {post.tags?.map((t) => (
-          <span key={t.tag_name}>#{t.tag_name}</span>
+          <span key={t.tag_name}
+          className="hover:underline cursor-pointer"
+          onClick={(e)=>{
+            router.push(`/search?tag=${t.tag_name}`)
+            e.stopPropagation()
+          }}
+          >#{t.tag_name}</span>
         ))}
       </div>
       <span className="text-sm">
