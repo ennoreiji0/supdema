@@ -16,9 +16,11 @@ export default function SendComment({
   const [message,setMessage]=useState<string>('')
   const supabase=createClient()
   const sendMessage=async()=>{
+    const nowMessage=message
+    setMessage('')
     const {error}=await supabase
       .from('comments')
-      .insert([{post_id:postId,user_id:userId,username:username,content:message}])
+      .insert([{post_id:postId,user_id:userId,username:username,content:nowMessage}])
     setMessage('')
   }
 
@@ -32,7 +34,12 @@ export default function SendComment({
         onChange={(e)=>{setMessage(e.target.value)}}
       />
       <NormalButton
-        onClick={sendMessage}
+        onClick={()=>{
+        
+            sendMessage();
+          
+        }}
+        disabled={!message.trim()}
       >送信</NormalButton>
     </div>
   )

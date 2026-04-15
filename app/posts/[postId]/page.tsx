@@ -18,9 +18,9 @@ export default async function PostPage({
   const { postId } = await params;
   const supabase= await createClient()
   let isMyPost=false;
-
+  let sendOK=false;
   const {data:{user}}=await supabase.auth.getUser()
-  console.log(user)
+
   const {data,error}=await supabase
     .from('posts')
     .select(`
@@ -44,10 +44,13 @@ export default async function PostPage({
     notFound();
   }
 
-  if(post.user_id===user?.id){
+  if(post.user_id===user?.id||!user){
     isMyPost=true;
   }
 
+  if(user){
+    sendOK=true;
+  }
   
   return (
     <div>
@@ -62,7 +65,7 @@ export default async function PostPage({
             value="解決したい！"
             isMyPost={isMyPost}
           ></SolveButton>
-
+          <div className="h-7"></div>
           <SolveButton
             postId={post.id}
             userId={user?.id}
@@ -72,7 +75,7 @@ export default async function PostPage({
           ></SolveButton>
         </div>
       </div>
-      <Chat postId={postId}/>
+      <Chat postId={postId} sendOK={sendOK}/>
     </div>
   );
 }

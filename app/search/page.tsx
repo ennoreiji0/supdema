@@ -1,8 +1,11 @@
 import Header from "@/components/Header";
+import MyLink from "@/components/MyLink";
+import NormalButton from "@/components/NormalButton";
 import PostCard from "@/components/PostCard";
 import SearchForm from "@/components/SearchForm";
 import { createClient } from "@/utils/server";
 import { Post } from "@/utils/types";
+import { redirect } from "next/navigation";
 type Result={
   post_id:string;
   posts:Post|null;
@@ -46,7 +49,7 @@ export default async function SearchHashTag({
     <div>
       <Header/>
       <SearchForm initialValue={tag||''}/>
-      
+      <MyLink href="/see">タイムラインへ</MyLink>
       <div>
         {!tag ? (
           <>

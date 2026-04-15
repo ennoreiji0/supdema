@@ -1,8 +1,8 @@
-import { createServerClient, type CookieOptions } from '@supabase/ssr'
-import { NextResponse, type NextRequest } from 'next/server'
+/*import { createServerClient, type CookieOptions } from '@supabase/ssr'
+import { NextResponse, type NextRequest } from 'next/server'*/
 
-export async function middleware(request: NextRequest) {
-  let response = NextResponse.next({
+export async function middleware() {
+/*  let response = NextResponse.next({
     request: { headers: request.headers },
   })
 
@@ -46,9 +46,9 @@ if (user && pathname === '/') {
   return NextResponse.redirect(new URL('/dashboard', request.url))
 }
 
-return response
+return response*/
 }
-
+/*
 export const config = {
   matcher: ['/((?!api|_next/static|_next/image|favicon.ico|sinup|login|.*\\.(?:svg|png|jpg|jpeg|gif|webp)$).*)'],
-}
+}**/

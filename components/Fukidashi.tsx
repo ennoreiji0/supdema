@@ -19,7 +19,7 @@ export default function Fukidashi({
       <div className={`flex ${isMe ? 'justify-end' : 'justify-start'} mb-1`}>
         <div className="flex flex-col max-w-[75%]">
           {!isMe && hasUsername && (
-            <span className="text-[10px] text-gray-500 ml-1 leading-none mb-0.5">
+            <span className="text-[10px] text-slate-100 ml-1 leading-none mb-0.5">
               {username}
             </span>
           )}

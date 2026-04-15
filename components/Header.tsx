@@ -5,7 +5,7 @@ import MyLink from "./MyLink"
 export default function Header(){
   return (
     <div>
-        <MyLink href="/" className="no-underline"><img src="/images/supdema.png" className="p-2 h-20"></img></MyLink>
+        <MyLink href="/dashboard" className="no-underline"><img src="/images/supdema.png" className="p-2 h-20"></img></MyLink>
     </div>
   )
 }

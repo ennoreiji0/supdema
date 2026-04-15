@@ -7,6 +7,7 @@ import { useRouter } from "next/navigation"
 import {useState, useEffect } from "react"
 import { Post } from "@/utils/types"
 import PostCard from "@/components/PostCard"
+import useRequireAuth from "@/utils/useRequireAuth"
 
 
 export default function MyDemand(){
@@ -14,6 +15,7 @@ export default function MyDemand(){
   const [karappo,setKarappo]=useState<string>('読み込み中...')
   const [userId,setUserId]=useState<string>('')
   const supabase=createClient()
+  useRequireAuth()
   //const router=useRouter()
   useEffect(()=>{
     const fetchUser=async ()=>{

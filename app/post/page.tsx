@@ -6,8 +6,10 @@ import NormalButton from "@/components/NormalButton"
 import { saveDemand, setHashTags } from "@/utils/supabase"
 import { send } from "process"
 import MyLink from "@/components/MyLink"
+import useRequireAuth from "@/utils/useRequireAuth"
 
 export default function Post(){
+  useRequireAuth()
   const router=useRouter()
   const [content,setContent]=useState<string>('')
   const [buttonOK,setButtonOK]=useState<boolean>(true)

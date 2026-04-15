@@ -6,12 +6,15 @@ import SendComment from "./SendComment";
 import { ChatInfo } from "@/utils/types";
 import ChatView from "./ChatView";
 import { useEffect, useState } from "react";
+import MyLink from "./MyLink";
 
 
 export default function Chat({
   postId,
+  sendOK
 }:{
   postId:string
+  sendOK:boolean
 }){
   const [userId,setUserId]=useState<string|undefined>('')
   const [userName,setUserName]=useState<string>('')
@@ -55,11 +58,16 @@ export default function Chat({
         nowUserId={userId}
         initialComments={chatData??[]}
       />
-      <SendComment
-        username={userName}
-        postId={postId}
-        userId={userId}
-      />
+      {sendOK?(
+        <SendComment
+          username={userName}
+          postId={postId}
+          userId={userId}
+        />
+      ):(
+        <p><MyLink href="/">ログイン</MyLink>してチャットに参加しよう</p>
+      )}
+      
     </div>
   )
 }

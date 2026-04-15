@@ -2,8 +2,14 @@
 
 import ButtonInHome from "@/components/ButtonInHome"
 import MyLink from "@/components/MyLink"
+import { createClient } from "@/utils/supabase"
+import useRequireAuth from "@/utils/useRequireAuth"
+import { useRouter } from "next/navigation"
+import { useEffect, useState } from "react"
 
 export default function HomePage(){
+  useRequireAuth()
+  
   return (
     <div>
     <div className="flex justify-center p-7">
