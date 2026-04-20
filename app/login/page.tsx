@@ -4,6 +4,7 @@ import { useEffect, useReducer, useState } from "react"
 import NormalButton from "@/components/NormalButton"
 import { useRouter } from "next/navigation"
 import useOkAuth from "@/utils/useOkAuth"
+import BackButton from "@/components/BackButton"
 
 
 
@@ -12,6 +13,7 @@ export default function Auth(){
   const [email,setEmail]=useState<string>('')
   const [password,setPassword]=useState<string>('')
   const [sendOK,setSendOK]=useState<boolean>(false);
+  const [errorAppear,setErrorAppear]=useState<boolean>(false)
   const supabase=createClient()
   
 
@@ -34,6 +36,7 @@ export default function Auth(){
     
     if(error){
       console.log(error)
+      setErrorAppear(true)
     }else{
       
       console.log("okay")
@@ -43,6 +46,7 @@ export default function Auth(){
 
   return (
     <div>
+      <BackButton/>
       <div>
         <div>
           メールアドレス:<input type="text" className="border-2" 
@@ -59,7 +63,7 @@ export default function Auth(){
         <NormalButton onClick={handleLogin}
           disabled={!sendOK}
         >ログイン</NormalButton>
-        
+        {errorAppear&&(<p>メールアドレスかパスワードが違います</p>)}
       </div>
     </div>
   )

@@ -52,6 +52,7 @@ export default function MyDemand(){
             
             <NormalButton 
               onClick={async()=>{
+                if(confirm("本当に削除しますか？")){
                 const {error}=await supabase
                   .from('posts')
                   .delete()
@@ -62,7 +63,7 @@ export default function MyDemand(){
                 }else{
                   alert("削除しました")
                   window.location.reload()
-                }
+                }}
               }}
               className="ml-auto"
             >削除</NormalButton>
