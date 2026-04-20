@@ -3,9 +3,11 @@
 import Header from "@/components/Header"
 import NormalButton from "@/components/NormalButton"
 import { createClient } from "@/utils/supabase"
+import useRequireAuth from "@/utils/useRequireAuth"
 import { useState } from "react"
 
 export default function PasswordChange(){
+  useRequireAuth()
   const [newPassword,setNewPassword]=useState<string>('')
   const supabase=createClient()
   const handleChange=async()=>{

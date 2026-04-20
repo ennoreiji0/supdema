@@ -2,11 +2,13 @@
 import Header from "@/components/Header"
 import NormalButton from "@/components/NormalButton"
 import { createClient, getPosts } from "@/utils/supabase"
+import useRequireAuth from "@/utils/useRequireAuth"
 import { fetchExternalImage } from "next/dist/server/image-optimizer"
 import { useEffect, useState } from "react"
 
 
 export default function ProfileChange(){
+  useRequireAuth()
   const [userName,setUserName]=useState<string>('')
   const [userID,setUserID]=useState<string>('')
   const [sendOK,setSendOK]=useState<boolean>(true)
@@ -44,7 +46,7 @@ export default function ProfileChange(){
       .from('users')
       .update({username:userName})
       .eq('id',userID)
-    window.location.href="/"
+    window.location.href="/dashboard"
   }
 
   return (

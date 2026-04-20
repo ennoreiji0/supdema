@@ -3,10 +3,12 @@
 import Header from "@/components/Header"
 import NormalButton from "@/components/NormalButton"
 import { createClient } from "@/utils/supabase"
+import useRequireAuth from "@/utils/useRequireAuth"
 import { useRouter } from "next/navigation"
 import { useState } from "react"
 
 export default function MyPage(){
+  useRequireAuth()
   const [buttonOK,setButtonOK]=useState<boolean>(true)
   const supabase=createClient()
   const router=useRouter()

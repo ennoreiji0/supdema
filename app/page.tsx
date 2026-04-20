@@ -1,16 +1,17 @@
 'use client'
 
 import Em from "@/components/Em"
-import GoogleLoginButton from "@/components/GoogleLoginButton"
 import Header from "@/components/Header"
 import MyLink from "@/components/MyLink"
 import RiyouKiyaku from "@/components/RiyouKiyaku"
+import useOkAuth from "@/utils/useOkAuth"
 /*import HomePage from "@/app/dashboard/page"
 import { createClient } from "@/utils/supabase"
 import { useEffect, useState } from "react"
 import { useRouter } from "next/navigation"*/
 
 export default function Home(){
+  useOkAuth()
   /*const [users,setUsers]=useState<any>(null)
   const supabase=createClient()
   const router=useRouter()*/

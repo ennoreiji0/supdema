@@ -1,6 +1,8 @@
 import MyLink from "@/components/MyLink";
+import useRequireAuth from "@/utils/useRequireAuth";
 
 export default function DeleteAccount(){
+  useRequireAuth()
   return (
     <div>
       <h1>アカウント削除について</h1>

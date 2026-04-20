@@ -3,8 +3,10 @@ import { useState,useEffect } from "react";
 import { createClient } from "@/utils/supabase";
 import NormalButton from "@/components/NormalButton";
 import Em from "@/components/Em";
+import useOkAuth from "@/utils/useOkAuth";
 
 export default function NewUser(){
+    useOkAuth()
     const [email,setEmail]=useState<string>('')
     const [password,setPassword]=useState<string>('')
     const [userName,setUserName]=useState<string>('')

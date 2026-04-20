@@ -1,6 +1,6 @@
 'use client'
 
-import { createClient } from '@/utils/supabase'
+/*import { createClient } from '@/utils/supabase'
 import { createBrowserClient } from '@supabase/ssr'
 import NormalButton from './NormalButton'
 
@@ -40,4 +40,4 @@ return (
       </NormalButton>
     </div>
   )
-}
+}*/

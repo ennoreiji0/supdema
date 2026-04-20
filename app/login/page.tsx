@@ -3,10 +3,12 @@ import { createClient } from "@/utils/supabase"
 import { useEffect, useReducer, useState } from "react"
 import NormalButton from "@/components/NormalButton"
 import { useRouter } from "next/navigation"
+import useOkAuth from "@/utils/useOkAuth"
 
 
 
 export default function Auth(){
+  useOkAuth()
   const [email,setEmail]=useState<string>('')
   const [password,setPassword]=useState<string>('')
   const [sendOK,setSendOK]=useState<boolean>(false);
