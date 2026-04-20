@@ -1,3 +1,4 @@
+'use client'
 import MyLink from "@/components/MyLink";
 import useRequireAuth from "@/utils/useRequireAuth";
 
