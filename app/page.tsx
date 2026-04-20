@@ -11,30 +11,12 @@ import { useEffect, useState } from "react"
 import { useRouter } from "next/navigation"*/
 
 export default function Home(){
-  useOkAuth()
-  /*const [users,setUsers]=useState<any>(null)
-  const supabase=createClient()
-  const router=useRouter()*/
-
-
-  /*useEffect(() => {
-    const checkUser = async () => {
-      const { data: { user } } = await supabase.auth.getUser()
-      setUsers(user)
-    }
-    checkUser()
-
-    const { data: { subscription } } = supabase.auth.onAuthStateChange((event, session) => {
-      console.log("Auth Event:", event) 
-      setUsers(session?.user ?? null)
-    })
-
-    return () => subscription.unsubscribe() 
-  }, [])*/
+  //useOkAuth()
+  
 
 
 
-  return (
+  /*return (
     <div>  
       <Header/>
       <div className="text-2xl">
@@ -47,6 +29,9 @@ export default function Home(){
       <p className="mt-7">新規登録をすると、利用規約に同意したものとみなされます</p>
       <RiyouKiyaku/>
     </div>
+  )*/
+  return (
+    <h1>error</h1>
   )
 }
 
