@@ -26,7 +26,7 @@ export default function PostCard(
       }}
     >
       <p className="text-sm font-bold text-slate-300">{post.users?.username}</p>
-      <p>{post.content}</p>
+      <p className="text-xl">{post.content}</p>
       <div className="text-base text-[#77a9f8] space-x-1">
         {post.tags?.map((t) => (
           <span key={t.tag_name}
