@@ -7,6 +7,7 @@ import { saveDemand, setHashTags } from "@/utils/supabase"
 import { send } from "process"
 import MyLink from "@/components/MyLink"
 import useRequireAuth from "@/utils/useRequireAuth"
+import TextareaAutosize from 'react-textarea-autosize'
 
 export default function Post(){
   useRequireAuth()
@@ -14,6 +15,7 @@ export default function Post(){
   const [content,setContent]=useState<string>('')
   const [buttonOK,setButtonOK]=useState<boolean>(true)
   const [tags,setTags]=useState<string[]>([])
+  const [message,setMessage]=useState<string>('')
   return (
     <div className="text-xl">
       <Header/>
@@ -23,9 +25,15 @@ export default function Post(){
       </div>
       
       
-        <textarea className="border-2" 
+        <TextareaAutosize 
+          minRows={3}
+          maxRows={10}
+          className="border-2 w-full" 
           value={content}
-          onChange={(e)=>setContent(e.target.value)}/>
+          onChange={(e)=>{
+            setContent(e.target.value)
+            
+          }}/>
         <h2 className="mt-4">ハッシュタグ</h2>
         <input 
           type="text"
@@ -62,6 +70,12 @@ export default function Post(){
             if(content===""){
               return;
             }
+
+            if(content.length>1000){
+              setMessage('文字数は1000文字以内にしてください')
+              return;
+            }
+
             setButtonOK(false)
             setContent('...')
             const result=await saveDemand(content)
@@ -85,6 +99,7 @@ export default function Post(){
             
           }}
         >Supply!</NormalButton>
+        <p>{message}</p>
         <br />
       </div>
     </div>

@@ -73,6 +73,14 @@ export default async function PostPage({
             value="着手したよ！"
             isMyPost={isMyPost}
           ></SolveButton>
+          <div className="h-7"></div>
+          <SolveButton
+            postId={post.id}
+            userId={user?.id}
+            action="cheer"
+            value="応援！"
+            isMyPost={isMyPost}
+          ></SolveButton>
         </div>
       </div>
       <Chat postId={postId} sendOK={sendOK}/>

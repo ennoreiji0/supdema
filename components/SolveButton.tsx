@@ -45,7 +45,7 @@ export function SolveButton(
       setNowCount(countSolve||0);
       setFans(data)
     }
-    const checkPushed=async()=>{
+    /*const checkPushed=async()=>{
       if (userId) {
         // DBにデータがあるかチェック
         const { data } = await supabase
@@ -58,7 +58,7 @@ export function SolveButton(
         if (data) setIsPushed(true); // データがあれば「済み」
         setButtonOK(isPushed)
       }
-    }
+    }*/
     fetchFans();
   },[])
 
