@@ -7,6 +7,7 @@ import PostCard from "@/components/PostCard";
 import { setSolve } from "@/utils/supabase";
 import { SolveButton } from "@/components/SolveButton";
 import Chat from "@/components/Chat";
+import Header from "@/components/Header";
 
 
 
@@ -54,6 +55,7 @@ export default async function PostPage({
   
   return (
     <div>
+      <Header/>
       <BackButton/>
       <div className="space-y-3 bg-slate-700 p-3">
         <PostCard post={post} userId={user?.id} cursor={false}/>
