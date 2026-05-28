@@ -58,16 +58,14 @@ export default function Chat({
         nowUserId={userId}
         initialComments={chatData??[]}
       />
-      {sendOK?(
+      {
         <SendComment
-          username={userName}
+          username={userName??'名無し'}
           postId={postId}
-          userId={userId}
+          userId={userId??undefined}
         />
-      ):(
-        <p><MyLink href="/">ログイン</MyLink>してチャットに参加しよう</p>
-      )}
-      
+      }
+      {}
     </div>
   )
 }

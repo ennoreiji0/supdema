@@ -6,13 +6,14 @@ type Props = {
   href: string;
   label: string;
   description: string;
+  disabled?:boolean
 }
 
-export default function ButtonInHome({ href, label, description }: Props){
+export default function ButtonInHome({ href, label, description, disabled=false }: Props){
   return (
     <div className="bg-[#cece8d] p-3 w-full sm:w-auto">
       <Link href={href}>
-        <NormalButton className="text-5xl py-4 my-7">
+        <NormalButton className="text-5xl py-4 my-7" disabled={disabled}>
           {label}
         </NormalButton>
       </Link>

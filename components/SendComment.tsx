@@ -25,7 +25,7 @@ export default function SendComment({
     }
     const {error}=await supabase
       .from('comments')
-      .insert([{post_id:postId,user_id:userId,username:username||'名無しさん',content:nowMessage}])
+      .insert([{post_id:postId,user_id:userId||null,username:username||'名無しさん',content:nowMessage}])
     
   }
 

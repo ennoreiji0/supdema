@@ -41,7 +41,8 @@ export default function Home(){
         <MyLink href="/login">ログイン</MyLink>
         <div className="h-4"></div>
         <MyLink href="/sinup">新規登録</MyLink>
-        
+        <div className="h-4"></div>
+        <MyLink href="/dashboard">ログインせずに開始</MyLink>
       </div>
       
       <p className="mt-7">新規登録をすると、利用規約に同意したものとみなされます</p>

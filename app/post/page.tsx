@@ -1,6 +1,6 @@
 'use client'
 import { useRouter } from "next/navigation"
-import { useState } from "react"
+import { useEffect, useState } from "react"
 import Header from "@/components/Header"
 import NormalButton from "@/components/NormalButton"
 import { saveDemand, setHashTags } from "@/utils/supabase"
@@ -8,14 +8,27 @@ import { send } from "process"
 import MyLink from "@/components/MyLink"
 import useRequireAuth from "@/utils/useRequireAuth"
 import TextareaAutosize from 'react-textarea-autosize'
+import { createClient } from "@/utils/supabase"
 
 export default function Post(){
-  useRequireAuth()
+  //useRequireAuth()
   const router=useRouter()
   const [content,setContent]=useState<string>('')
   const [buttonOK,setButtonOK]=useState<boolean>(true)
   const [tags,setTags]=useState<string[]>([])
   const [message,setMessage]=useState<string>('')
+  const [userOk,setUserOk]=useState<boolean>(false)
+  const supabase=createClient()
+  useEffect(()=>{
+    const fetchUser=async()=>{
+      const {data:{user}}=await supabase.auth.getUser()
+      if(user){
+        setUserOk(true)
+      }
+    }
+    fetchUser()
+  },[])
+
   return (
     <div className="text-xl">
       <Header/>
@@ -99,6 +112,7 @@ export default function Post(){
             
           }}
         >Supply!</NormalButton>
+        {userOk?"":(<p>ログインしていない場合、投稿の削除ができません。ログインは<a href="/" className="text-blue-500 underline">こちら</a></p>)}
         <p>{message}</p>
         <br />
       </div>
